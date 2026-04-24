@@ -1,0 +1,36 @@
+package com.example.demo;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.web.servlet.MockMvc;
+
+public class HelloControllerTest {
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
+    }
+
+    @Test
+    public void testSuccess() throws Exception {
+        mockMvc.perform(post("/greet")
+                .param("name", "admin"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/success"));
+    }
+
+    @Test
+    public void testFailure() throws Exception {
+        mockMvc.perform(post("/greet")
+                .param("name", "user"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
+                .andExpect(model().attributeExists("error"));
+    }
+}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h2>Home Page</h2>
+    <form action="/greet" method="post">
+        <input type="text" name="name" placeholder="Enter username" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+</body>
+</html>
