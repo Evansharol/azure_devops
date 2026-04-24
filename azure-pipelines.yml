@@ -2,15 +2,13 @@ trigger:
 - main
 
 pool:
-  name: default
+  name: maven
 
 steps:
-- task: Maven@4
+- script: mvnw.cmd clean test
+  displayName: 'Run Maven Tests'
+
+- task: PublishTestResults@2
   inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'clean test'
-    publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    mavenVersionOption: 'Default'
+    testRunTitle: 'JUnit Test Results'
