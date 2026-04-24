@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: maven
+  name: TestAgent
 
 steps:
 - script: mvnw.cmd clean test
